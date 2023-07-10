@@ -10,6 +10,15 @@ body {
   padding: 0;
 }
 
+.main-container {
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 #header-img {
   width: 100px;
   height: auto;
@@ -17,8 +26,9 @@ body {
 
 #nav-bar {
   position: fixed;
-  top: 0;
-  width: 100vw;
+  z-index: 10;
+  right: 0;
+  left: 0;
   background-color: white;
   display: flex;
   justify-content: space-between;
@@ -26,12 +36,21 @@ body {
   box-sizing: border-box;
 }
 
+#nav-toggle {
+  display: none;
+}
+
 #nav-logo {
   display: flex;
   align-items: center;
 }
 
-#nav-logo p {
+#logo {
+  display: flex;
+  align-items: center;
+}
+
+#logo p {
   font-weight: bold;
   font-size: 1.2em;
   color: #8360c3;
@@ -50,6 +69,11 @@ body {
 .nav-link {
   text-decoration: none;
   color: #8360c3;
+  transition: 0.5s;
+}
+
+.nav-item:hover .nav-link {
+  color: #2ebf91;
 }
 
 #main {
@@ -69,7 +93,7 @@ body {
     #2ebf91,
     #8360c3
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,7 +110,25 @@ body {
   color: #f3f3f3;
 }
 
-#intro-header button {
+#form {
+  display: flex;
+  flex-direction: column;
+}
+
+#email {
+  width: 70%;
+  padding: 20px;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+#email:focus {
+  outline: none;
+}
+
+#submit {
   background-color: #8360c3;
   color: #f3f3f3;
   padding: 20px 50px;
@@ -94,11 +136,15 @@ body {
   border: none;
   border-radius: 50px;
   box-shadow: 0 0 5px #121212;
+  transition: 0.5s;
+  width: 300px;
+  font-family: Poppins, sans-serif;
 }
 
-#intro-header button:hover {
+#submit:hover {
   cursor: pointer;
-  background-color: #8969c5;
+  color: #121212;
+  background-color: #2ebf91;
 }
 
 #intro-video {
@@ -109,10 +155,12 @@ body {
 #video {
   width: 600px;
   height: 300px;
+  border-radius: 5px;
+  border: none;
 }
 
 #features {
-  height: 80vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -176,14 +224,14 @@ body {
 }
 
 #pricing {
-  height: 80vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#pricing h1 {
+#pricing-header {
   font-size: 2.5em;
   color: #121212;
   margin-bottom: 50px;
@@ -199,6 +247,11 @@ body {
   margin: 0 10px;
   box-shadow: 0 0 5px #121212;
   border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.pricing-card:hover {
+  border: 1px solid #121212;
 }
 
 .pricing-card-header {
@@ -276,16 +329,14 @@ body {
   margin-top: 10vh;
   background-color: #121212;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
+  justify-content: space-between;
   padding: 20px;
   box-sizing: border-box;
 }
 
 #footer-list {
   list-style: none;
-  width: 30%;
+  margin: 0;
 }
 
 #footer-list li a {
@@ -299,20 +350,114 @@ body {
   margin: 0;
 }
 
-@media (max-width: 767px) {
-  body {
-    padding-top: 10%;
+@media (max-width: 1023px) {
+  #header-img {
+    display: none;
   }
+
+  #nav-bar {
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  #nav-logo {
+    justify-content: space-between;
+  }
+
+  #logo p {
+    font-size: 1em;
+  }
+
+  #nav-items {
+    display: none;
+    padding: 0;
+    font-size: 1em;
+    margin: 0;
+  }
+
+  #nav-toggle {
+    display: block;
+    background-color: transparent;
+    padding: 10px 20px;
+    font-size: 2em;
+    border: none;
+    align-self: flex-start;
+  }
+
   #introduction {
     flex-direction: column;
+    margin-top: 5vh;
+    height: 90vh;
   }
 
   #intro-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    font-size: 180%;
+    font-size: 1em;
+  }
+
+  #email {
+    display: none;
+  }
+
+  #submit {
+    font-size: 1.2em;
   }
 
   #intro-video {
     display: none;
+  }
+
+  #features-header,
+  #pricing-header {
+    font-size: 2em;
+    margin: 50px 0 20px;
+  }
+
+  #features-list {
+    flex-direction: column;
+  }
+
+  .features-card {
+    width: 80vw;
+    height: fit-content;
+    margin: 10px;
+  }
+
+  #pricing-list {
+    flex-direction: column;
+  }
+
+  .pricing-card {
+    margin-bottom: 20px;
+    width: 80vw;
+    height: fit-content;
+  }
+
+  .pricing-card-header {
+    margin-bottom: 20px;
+  }
+
+  /* .pricing-card-plan h2 {
+    font-size: 2em;
+  }
+
+  .pricing-card-price h3 {
+    font-size: 2.5em;
+  }
+
+  .pricing-card-body ul li {
+    font-size: 1.5em;
+  } */
+
+  .pricing-card-btn {
+    display: none;
+  }
+
+  #footer {
+    font-size: 1em;
+    flex-direction: column;
   }
 }
